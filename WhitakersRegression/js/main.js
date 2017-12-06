@@ -51,12 +51,12 @@ $(document).ready(function () {
 
         var valuesX = [];
         $('.dataX').each(function () {
-            values.push($(this).val());
+            valuesX.push($(this).val());
         });
 
         var valuesYt = [];
         $('.dataYt').each(function () {
-            values.push($(this).val());
+            valuesYt.push($(this).val());
         });
 
         var calculatedItems = linearRegression(valuesX, valuesYt);
