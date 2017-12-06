@@ -41,9 +41,14 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
       <div class="container">
-        <h1>Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+        <h1>Development assignment:</h1>
+        <p>Requirements: </p>
+        <ul>
+            <li>X and Y values are entered by the user. Floating point values</li>
+            <li>User must be able to add Y values for unknown samples, x needs to be calculated</li>
+            <li>Bonus points if the curve can be displayed in a graph</li>
+        </ul>
+        <p><a id="Exec" class="btn btn-primary btn-lg pull-right" href="#" role="button">&raquo; Exec Calulation</a></p>
       </div>
     </div>
 
@@ -52,25 +57,27 @@
       <div class="row">
         <div class="col-md-4">
           <h2>X (Concentration)</h2>
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="1.3">
+            <div class="form-group datacoloumX dataColgen">
+                <input type="text" class="form-control dataX" placeholder="1.3">
             </div>
                 
         </div>
         <div class="col-md-4">
           <h2>Y (theoretical)</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            <div class="form-group datacoloumYt dataColgen">
+                <input type="text" class="form-control dataYt" placeholder="1.3">
+            </div>
        </div>
         <div class="col-md-4">
           <h2>Y (measured)</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            <div class="form-group datacoloumYm dataColgen">
+                <input type="text" class="form-control dataYm" placeholder="1.3">
+            </div>
         </div>
       </div>
       <div class="row">
           <div class=".col-md-offset-4 pull-right">
-              <a href="#" class="btn btn-primary"> + ADD ROW</a>
+              <a href="#" id="AddBtn" class="btn btn-primary"> + ADD ROW</a>
           </div>
       </div>
 
