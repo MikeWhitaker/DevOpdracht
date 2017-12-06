@@ -18,7 +18,9 @@ $(document).ready(function () {
             sum_yy += (y[i] * y[i]);
         }
 
+        //a
         lr['slope'] = (n * sum_xy - sum_x * sum_y) / (n * sum_xx - sum_x * sum_x);
+        //b
         lr['intercept'] = (sum_y - lr.slope * sum_x) / n;
         lr['r2'] = Math.pow((n * sum_xy - sum_x * sum_y) / Math.sqrt((n * sum_xx - sum_x * sum_x) * (n * sum_yy - sum_y * sum_y)), 2);
 
@@ -37,17 +39,17 @@ $(document).ready(function () {
             //.attr("name", "myfieldid")
             .appendTo(".datacoloumYt");
 
-        $("<input type='text' value='' class='form-control dataYm'/>")
-            //.attr("id", "myfieldid")
-            //.attr("name", "myfieldid")
-            .appendTo(".datacoloumYm");
+        //$("<input type='text' value='' class='form-control dataYm'/>")
+        //    //.attr("id", "myfieldid")
+        //    //.attr("name", "myfieldid")
+        //    .appendTo(".datacoloumYm");
 
 
 
     });
 
 
-    $('#Exec').click(function () {
+    $('#ExecResolve').click(function () {
 
         var valuesX = [];
         $('.dataX').each(function () {
@@ -60,7 +62,58 @@ $(document).ready(function () {
         });
 
         var calculatedItems = linearRegression(valuesX, valuesYt);
-        
+
+        //Disable ExcuteResolve Button
+        $('#ExecResolve').removeClass('btn-primary');
+        $('#ExecResolve').addClass('btn-default');
+        $('#ExecResolve').addClass('disabled');
+
+        //show hidden inputfield
+        $('#ShowResolvedItems').show();
+
+        //Enable CalcX Button
+        $('#CalcX').addClass('btn-primary');
+        $('#CalcX').removeClass('btn-default');
+        $('#CalcX').removeClass('disabled');
+
+
+        //Disable all Theoretical input
+        $('.dataX').prop('readonly', true);
+        $('.dataYt').prop('readonly', true);
+
+        $('#AddBtn').removeClass('btn-primary');
+        $('#AddBtn').addClass('btn-default');
+        $('#AddBtn').addClass('disabled');
+
+
+        //Enable Mesurement Input dataYm
+        $('.dataYm').prop('readonly', false);
+        $('.dataXCalced').prop('readonly', false);
+
+        //Insert resolved values:
+        $("<strong>Obtained value's:<br> a: " + calculatedItems['slope'] + " b: " + calculatedItems['intercept'] + "</strong>").appendTo(".resolve-output");
+
+
+
+        //alert(calculatedItems['slope']);
+
+
+    });
+
+    $('#ExecCalcX').click(function () {
+
+        var valuesX = [];
+        $('.dataX').each(function () {
+            valuesX.push($(this).val());
+        });
+
+        var valuesYt = [];
+        $('.dataYt').each(function () {
+            valuesYt.push($(this).val());
+        });
+
+        var calculatedItems = linearRegression(valuesX, valuesYt);
+
 
         alert(calculatedItems['slope']);
 
