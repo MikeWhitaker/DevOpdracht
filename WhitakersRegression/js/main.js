@@ -62,7 +62,7 @@ $(document).ready(function () {
         var calculatedItems = linearRegression(valuesX, valuesYt);
         
 
-        alert(calculatedItems);
+        alert(calculatedItems['slope']);
 
 
     });
