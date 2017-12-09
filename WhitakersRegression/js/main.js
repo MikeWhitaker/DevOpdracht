@@ -33,22 +33,11 @@ $(document).ready(function () {
     $('#AddBtn').click(function () {
 
         $("<input type='text' value='' class='form-control dataX'/>")
-            //.attr("id", "myfieldid")
-            //.attr("name", "myfieldid")
             .appendTo(".datacoloumX");
 
         $("<input type='text' value='' class='form-control dataYt'/>")
-            //.attr("id", "myfieldid")
-            //.attr("name", "myfieldid")
             .appendTo(".datacoloumYt");
-
-        //$("<input type='text' value='' class='form-control dataYm'/>")
-        //    //.attr("id", "myfieldid")
-        //    //.attr("name", "myfieldid")
-        //    .appendTo(".datacoloumYm");
-
-
-
+                
     });
 
 
@@ -66,10 +55,15 @@ $(document).ready(function () {
         $('.dataYt').each(function () {
             valuesYt.push($(this).val());
         });
-        for (var i = 0; i < valuesYt.length; i++) valuesYt[i] = +valuesYt[i];
+        for (i = 0; i < valuesYt.length; i++) valuesYt[i] = +valuesYt[i];
                 
 
         var calculatedItems = linearRegression(valuesYt, valuesX);
+        //Write Values to hidden input fields.
+        $('#valueA').val(calculatedItems['slope']);
+        $('#valueB').val(calculatedItems['intercept']);
+
+
         
         //Disable ExcuteResolve Button
         $('#ExecResolve').removeClass('btn-primary');
@@ -98,14 +92,24 @@ $(document).ready(function () {
         $('.dataYm').prop('readonly', false);
         $('.dataXCalced').prop('readonly', false);
 
-        //Insert resolved values:
-        //$("<strong>Obtained value's:<br> a: " + calculatedItems['slope'] + " b: " + calculatedItems['intercept'] + "</strong>").appendTo(".resolve-output");
+        
 
     });
 
-    //$('#ExecCalcX').click(function () {
+    $('#ExecCalcX').click(function () {
 
-    //    var valuesX = [];
+        var a = $('#valueA').val();
+        var b = $('#valueB').val();
+
+        //get laast value in the y messured colounm
+        $('.dataYm').each(function () {
+
+            var yM = $(this).val();
+
+        }
+
+        
+        //    var valuesX = [];
     //    $('.dataX').each(function () {
     //        valuesX.push($(this).val());
     //    });
@@ -118,10 +122,10 @@ $(document).ready(function () {
     //    var calculatedItems = linearRegression(valuesYt, valuesX);
 
 
-    //    alert(calculatedItems['slope']);
+    
 
 
-    //});
+    });
 
 });
 
