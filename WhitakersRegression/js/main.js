@@ -96,35 +96,35 @@ $(document).ready(function () {
 
     });
 
-    $('#ExecCalcX').click(function () {
-
+    $('#CalcX').click(function () {
         var a = $('#valueA').val();
         var b = $('#valueB').val();
-
+        
         //get laast value in the y messured colounm
         $('.dataYm').each(function () {
 
             var yM = $(this).val();
+            alter(yM);
+            if (index === (length - 1)) {
+                //console.log('Last field, submit form here');
+                var yM = $(this).val();
+            }
 
-        }
+        });
 
+        //The formula:
+        //	y = ax + b
         
-        //    var valuesX = [];
-    //    $('.dataX').each(function () {
-    //        valuesX.push($(this).val());
-    //    });
+        var x = ((yM + b) / a );
+        
+        $('.dataXCalced').each(function () {
 
-    //    var valuesYt = [];
-    //    $('.dataYt').each(function () {
-    //        valuesYt.push($(this).val());
-    //    });
-
-    //    var calculatedItems = linearRegression(valuesYt, valuesX);
-
-
-    
-
-
+            if (index === (length - 1)) {
+                //console.log('Last field, submit form here');
+                $(this).val(x);
+            }
+        });
+        
     });
 
 });
