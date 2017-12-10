@@ -97,33 +97,33 @@ $(document).ready(function () {
     });
 
     $('#CalcX').click(function () {
+        //Aquire calculated value's
         var a = $('#valueA').val();
         var b = $('#valueB').val();
+        var yM = null;
+
         
-        //get laast value in the y messured colounm
-        $('.dataYm').each(function () {
+        yM = $('.dataYm').last().val();
 
-            var yM = $(this).val();
-            alter(yM);
-            if (index === (length - 1)) {
-                //console.log('Last field, submit form here');
-                var yM = $(this).val();
-            }
 
-        });
+        a = +a;
+        b = +b;
+        yM = + yM;
+        //alert(yM + " " + a + " " + b);
 
+        
         //The formula:
-        //	y = ax + b
-        
-        var x = ((yM + b) / a );
-        
-        $('.dataXCalced').each(function () {
+        //	y = ax + b gives:
+        // x = (b -y / a) * -1
 
-            if (index === (length - 1)) {
-                //console.log('Last field, submit form here');
-                $(this).val(x);
-            }
-        });
+        var x = ((b - yM) / a ) * -1;
+        alert(x);
+        $('.dataXCalced').last().val(x);
+
+        //Add extra row 
+        $("<input type='text' value='' class='form-control dataYm'/>").appendTo(".datacoloumYm");
+
+        $("<input type='text' value='' class='form-control dataXCalced'/>").appendTo(".datacoloumXcalced");
         
     });
 
