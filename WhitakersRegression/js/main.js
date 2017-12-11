@@ -1,5 +1,33 @@
 $(document).ready(function () {
 
+    var chart = new Chart(document.getElementById("myChart"), {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                //data: [1, 2, 3, 4],
+                data: [],
+                label: "Theoretical Values",
+                borderColor: "#3e95cd",
+                fill: false
+            },
+            {
+                //data: [1, 2, 3, 4],
+                data: [],
+                label: "Measured Values",
+                borderColor: "#F50057",
+                fill: false
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Not yet resolved ...'
+            }
+        }
+    });
+   
+
     function linearRegression(y, x) {
         var lr = {};
         var n = y.length;
@@ -37,7 +65,7 @@ $(document).ready(function () {
 
         $("<input type='text' value='' class='form-control dataYt'/>")
             .appendTo(".datacoloumYt");
-                
+
     });
 
 
@@ -56,7 +84,7 @@ $(document).ready(function () {
             valuesYt.push($(this).val());
         });
         for (i = 0; i < valuesYt.length; i++) valuesYt[i] = +valuesYt[i];
-                
+
 
         var calculatedItems = linearRegression(valuesYt, valuesX);
         //Write Values to hidden input fields.
@@ -64,7 +92,7 @@ $(document).ready(function () {
         $('#valueB').val(calculatedItems['intercept']);
 
 
-        
+
         //Disable ExcuteResolve Button
         $('#ExecResolve').removeClass('btn-primary');
         $('#ExecResolve').addClass('btn-default');
@@ -92,81 +120,85 @@ $(document).ready(function () {
         $('.dataYm').prop('readonly', false);
         $('.dataXCalced').prop('readonly', false);
 
-        
+        //display chart
+        //new Chart(document.getElementById("myChart"), {
+        //    type: 'line',
+        //    data: {
+        //        labels: valuesYt,
+        //        datasets: [{
+        //            data: valuesX,
+        //            label: "Theoretical Values",
+        //            borderColor: "#3e95cd",
+        //            fill: false
+        //        }]
+        //    },
+        //    options: {
+        //        title: {
+        //            display: true,
+        //            text: 'Resolved curve'
+        //        }
+        //    }
+        //});
 
-    });
+        //update Chart
+        //function addData(chart, label, data) {
+        //    chart.data.labels.push(label);
+        //    chart.data.datasets.forEach((dataset) => {
+        //        dataset.data.push(data);
+        //    });
+        //    chart.update();
+        //}
 
-    $('#CalcX').click(function () {
-        //Aquire calculated value's
-        var a = $('#valueA').val();
-        var b = $('#valueB').val();
-        var yM = null;
+        chart.data.labels = valuesYt;
+        chart.data.datasets[0].data = valuesX;
+        chart.options.text = "resolved curve";
+        chart.options.title.text = "Calibration curve"
 
-        
-        yM = $('.dataYm').last().val();
-
-
-        a = +a;
-        b = +b;
-        yM = + yM;
-        //alert(yM + " " + a + " " + b);
-
-        
-        //The formula:
-        //	y = ax + b gives:
-        // x = (b -y / a) * -1
-
-        var x = ((b - yM) / a ) * -1;
-        alert(x);
-        $('.dataXCalced').last().val(x);
-
-        //Add extra row 
-        $("<input type='text' value='' class='form-control dataYm'/>").appendTo(".datacoloumYm");
-
-        $("<input type='text' value='' class='form-control dataXCalced'/>").appendTo(".datacoloumXcalced");
-        
-    });
+        chart.update();
 
 
-    $('#GenChart').click(function () {
-
-        var ctx = document.getElementById('myChart').getContext('2d');
-
-        var valuesX = [];
-        $('.dataX').each(function () {
-            valuesX.push($(this).val());
-        });
-        for (var i = 0; i < valuesX.length; i++) valuesX[i] = +valuesX[i];
-
-        var valuesYt = [];
-        $('.dataYt').each(function () {
-            valuesYt.push($(this).val());
-        });
-        for (i = 0; i < valuesYt.length; i++) valuesYt[i] = +valuesYt[i];
-        
-        new Chart(document.getElementById("myChart"), {
-            type: 'line',
-            data: {
-                labels: valuesYt,
-                datasets: [{
-                    data: valuesX,
-                    label: "Theoretical Values",
-                    borderColor: "#3e95cd",
-                    fill: false
-                }]
-            },
-            options: {
-                title: {
-                    display: true,
-                    text: 'example Chart ...'
-                }
-            }
         });
 
-        
+        $('#CalcX').click(function () {
+            //Aquire calculated value's
+            var a = $('#valueA').val();
+            var b = $('#valueB').val();
+            var yM = null;
 
-    });
+            yM = $('.dataYm').last().val();
 
+
+            a = +a;
+            b = +b;
+            yM = + yM;
+            //alert(yM + " " + a + " " + b);
+
+
+            //The formula:
+            //	y = ax + b gives:
+            // x = (b -y / a) * -1
+
+            var x = ((b - yM) / a) * -1;
+            $('.dataXCalced').last().val(x);
+
+            //Add extra row 
+            $("<input type='text' value='' class='form-control dataYm'/>").appendTo(".datacoloumYm");
+
+            $("<input type='text' value='' class='form-control dataXCalced'/>").appendTo(".datacoloumXcalced");
+
+
+            var valuesCalcedX = [];
+            $('.dataXCalced').each(function () {
+                valuesCalcedX.push($(this).val());
+            });
+            for (var i = 0; i < valuesCalcedX.length; i++) valuesCalcedX[i] = +valuesCalcedX[i];
+
+            valuesCalcedX.splice(-1, 1);
+
+            chart.data.datasets[1].data = valuesCalcedX;
+            chart.update();
+
+        });
 
 });
 
