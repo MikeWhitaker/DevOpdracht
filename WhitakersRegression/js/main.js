@@ -109,15 +109,13 @@ $(document).ready(function () {
         a = +a;
         b = +b;
         yM = + yM;
-        //alert(yM + " " + a + " " + b);
 
         
         //The formula:
         //	y = ax + b gives:
         // x = (b -y / a) * -1
 
-        var x = ((b - yM) / a ) * -1;
-        alert(x);
+        var x = ((b - yM) / a) * -1;
         $('.dataXCalced').last().val(x);
 
         //Add extra row 
