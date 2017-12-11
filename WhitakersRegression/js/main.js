@@ -127,5 +127,46 @@ $(document).ready(function () {
         
     });
 
+
+    $('#GenChart').click(function () {
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+
+        var valuesX = [];
+        $('.dataX').each(function () {
+            valuesX.push($(this).val());
+        });
+        for (var i = 0; i < valuesX.length; i++) valuesX[i] = +valuesX[i];
+
+        var valuesYt = [];
+        $('.dataYt').each(function () {
+            valuesYt.push($(this).val());
+        });
+        for (i = 0; i < valuesYt.length; i++) valuesYt[i] = +valuesYt[i];
+        
+        new Chart(document.getElementById("myChart"), {
+            type: 'line',
+            data: {
+                labels: valuesYt,
+                datasets: [{
+                    data: valuesX,
+                    label: "Theoretical Values",
+                    borderColor: "#3e95cd",
+                    fill: false
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'example Chart ...'
+                }
+            }
+        });
+
+        
+
+    });
+
+
 });
 
